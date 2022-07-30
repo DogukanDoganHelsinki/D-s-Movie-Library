@@ -37,7 +37,7 @@ function showMovies(data, numImages = 5) {
       movieEl.innerHTML = `
     
     <img src="${IMG_URL + poster_path}" alt="${title}" />
-
+    <button class="material-icons"><i class="fa fa-heart"></i></button>
         <div class="movie-info">
           <h3>${title}</h3>
           <span class="${getColor(vote_average)}">${vote_average}</span>
@@ -75,3 +75,29 @@ form.addEventListener("submit", (e) => {
     getMovies(searchURL + "&query=" + searchTerm);
   }
 });
+
+const eventListeners = () => {
+  document.querySelector("#highest_rated").addEventListener("click", (e) => {
+    location.href =
+      "http://127.0.0.1:5500/Categories/Highest%20Rated/index.html";
+  });
+  document
+    .querySelector("#popular_kid_movies")
+    .addEventListener("click", (e) => {
+      location.href =
+        "http://127.0.0.1:5500/Categories/Popular%20Kid%20Movies/index.html";
+    });
+  document.querySelector("#dramas").addEventListener("click", (e) => {
+    location.href = "http://127.0.0.1:5500/Categories/Dramas/index.html";
+  });
+  document.querySelector("#sci-fi").addEventListener("click", (e) => {
+    location.href = "http://127.0.0.1:5500/Categories/Sci-Fi/index.html";
+    //BUNU SOR, 2 KERE ATLAYINCA BU PROBLEMI NASIL COZECEGIZ?
+    //location.href = "Categories/Sci-Fi/index.html";
+  });
+  document.querySelector(".back_btn").addEventListener("click", (e) => {
+    window.history.go(-1);
+  });
+};
+
+eventListeners();

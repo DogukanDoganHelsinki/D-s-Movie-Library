@@ -28,12 +28,31 @@ header {
   background-color: var(--secondary-color);
 }
 
+.back_btn {
+  float: left;
+  font-size: 2rem;
+  color: white;
+  background-color: var(--secondary-color);
+  text-align: center;
+  text-decoration: none;
+  margin-left: 0.5rem;
+  padding: 4px;
+  font-family: inherit;
+  display: flex;
+  justify-content: center;
+  border: none;
+}
+.back_btn:hover {
+  transform: scale(1.7);
+  background-color: var(--primary-color);
+}
+
 /* Navbar container */
 .navbar {
   overflow: hidden;
   background-color: var(--secondary-color);
   font-family: inherit;
-  margin-left: 5rem;
+  margin-left: 6rem;
   display: flex;
   justify-content: center;
 }
@@ -200,4 +219,14 @@ main {
 
 .movie:hover .overview {
   transform: translateY(0);
+}
+.material-icons {
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  font-size: 1.7rem;
+  color: white;
+  background-color: transparent;
+  border: none;
+  z-index: 1;
 }

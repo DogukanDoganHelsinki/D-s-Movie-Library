@@ -10,6 +10,7 @@ const main = document.getElementById("main");
 const form = document.getElementById("form");
 const search = document.getElementById("search");
 const searchURL = BASE_URL + "search/movie?" + API_KEY;
+const aHighestRated = document.querySelector("#highest_rated");
 
 //https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=fcc651f2e319bf0891036e2b83989afc
 
@@ -37,6 +38,7 @@ function showMovies(data, numImages = 5) {
     
     <img src="${IMG_URL + poster_path}" alt="${title}" />
 
+    <button class="material-icons"><i class="fa fa-heart"></i></button>
         <div class="movie-info">
           <h3>${title}</h3>
           <span class="${getColor(vote_average)}">${vote_average}</span>
@@ -68,9 +70,35 @@ function getColor(vote) {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const searchTerm = search.value;
+  const searchValue = search.value;
 
-  if (searchTerm) {
-    getMovies(searchURL + "&query=" + searchTerm);
+  if (searchValue && searchValue !== "") {
+    getMovies(searchURL + "&query=" + searchValue);
+    searchValue = "";
+  } else {
+    window.location.reload();
   }
 });
+
+const eventListeners = () => {
+  document.querySelector("#highest_rated").addEventListener("click", (e) => {
+    location.href =
+      "http://127.0.0.1:5500/Categories/Highest%20Rated/index.html";
+  });
+  document
+    .querySelector("#popular_kid_movies")
+    .addEventListener("click", (e) => {
+      location.href =
+        "http://127.0.0.1:5500/Categories/Popular%20Kid%20Movies/index.html";
+    });
+  document.querySelector("#dramas").addEventListener("click", (e) => {
+    location.href = "http://127.0.0.1:5500/Categories/Dramas/index.html";
+  });
+  document.querySelector("#sci-fi").addEventListener("click", (e) => {
+    location.href = "http://127.0.0.1:5500/Categories/Sci-Fi/index.html";
+    //BUNU SOR, 2 KERE ATLAYINCA BU PROBLEMI NASIL COZECEGIZ?
+    //location.href = "Categories/Sci-Fi/index.html";
+  });
+};
+
+eventListeners();

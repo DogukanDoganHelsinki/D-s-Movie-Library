@@ -4,15 +4,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="icon" type="image/x-icon" href="favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+
     <title>D´s Movie <i class="mdi mdi-library-outline:"></i></title>
   </head>
   <body>
     <div class="container">
       <header>
         <div class="navbar">
-          <a href="index.html">Home</a>
+          <a href="http://127.0.0.1:5500/index.html">Home</a>
           <a href="#news">My Favourite List</a>
           <div class="dropdown">
             <button class="dropbtn">
@@ -20,14 +25,10 @@
               <i class="fa fa-caret-down"></i>
             </button>
             <div class="dropdown-content">
-              <a href="Categories/Highest Rated/index.html"
-                >Highest Rated Movies</a
-              >
-              <a href="Categories/Popular Kid Movies/index.html"
-                >Popular Kid Movies</a
-              >
-              <a href="Categories/Dramas/index.html">Dramas</a>
-              <a href="Categories/Sci-Fi/index.html">Sci-Fi</a>
+              <a id="highest_rated">Highest Rated Movies</a>
+              <a id="popular_kid_movies">Popular Kid Movies</a>
+              <a id="dramas">Dramas</a>
+              <a id="sci-fi">Sci-Fi</a>
             </div>
           </div>
         </div>
