@@ -8,11 +8,23 @@ const IMG_URL = "https://image.tmdb.org/t/p/w500";
 const container = document.querySelector(".container");
 const main = document.getElementById("main");
 const form = document.getElementById("form");
-const search = document.getElementById("search");
+
 const searchURL = BASE_URL + "search/movie?" + API_KEY;
 const aHighestRated = document.querySelector("#highest_rated");
 
 //https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=fcc651f2e319bf0891036e2b83989afc
+
+const startConf = () => {
+  let favMovies = localStorage.getItem("favMovies");
+
+  if (!favMovies) {
+    localStorage.setItem("favMovies", JSON.stringify([]));
+  } else {
+    localStorage.getItem("favMovies");
+  }
+};
+
+startConf();
 
 getMovies(API_URL);
 
@@ -24,13 +36,13 @@ function getMovies(url) {
     });
 }
 
-function showMovies(data, numImages = 5) {
+function showMovies(data, numImages = 1) {
   main.innerHTML = "";
 
   let i = 0;
   while (i < numImages) {
     data.forEach((movie) => {
-      const { title, poster_path, overview, vote_average } = movie;
+      const { title, poster_path, overview, vote_average, id } = movie;
       const movieEl = document.createElement("div");
       movieEl.classList.add("movie");
 
@@ -38,7 +50,11 @@ function showMovies(data, numImages = 5) {
     
     <img src="${IMG_URL + poster_path}" alt="${title}" />
 
-    <button class="material-icons"><i class="fa fa-heart"></i></button>
+    <button id="${id}" class="material-icons"><i class="fa fa-heart"></i></button>
+
+   
+
+    
         <div class="movie-info">
           <h3>${title}</h3>
           <span class="${getColor(vote_average)}">${vote_average}</span>
@@ -52,12 +68,29 @@ function showMovies(data, numImages = 5) {
     `;
 
       main.appendChild(movieEl);
+
+      let favBtns = document.querySelectorAll(".material-icons");
+
+      favBtns.forEach((fb) => {
+        //foreach yaptik cunku addeventlistener dizide calismiyor, bir elementte calisiyor.
+
+        fb.addEventListener("click", addFav);
+        /* fb.addEventListener("click", (e) => {
+          const clickedBtn = e.path[1];
+          const clickedBtnId = e.path[1].id;
+
+          if (fb.id === clickedBtnId) {
+            clickedBtn.style.color = "red";
+          }
+        }); */
+      });
     });
+
     i++;
   }
 }
 
-function getColor(vote) {
+const getColor = (vote) => {
   if (vote >= 8) {
     return "green";
   } else if (vote >= 5) {
@@ -65,12 +98,21 @@ function getColor(vote) {
   } else {
     return "red";
   }
-}
+};
+
+const addFav = (e) => {
+  let favBtns = document.querySelectorAll(".material-icons");
+  const clickedMovieText = e.path[2].firstElementChild.alt;
+
+  let favMovies = localStorage.getItem("favMovies");
+  favMovies = favMovies + clickedMovieText;
+  localStorage.setItem("favMovies", favMovies + "/");
+};
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-
-  const searchValue = search.value;
+  const search = document.getElementById("search");
+  let searchValue = search.value;
 
   if (searchValue && searchValue !== "") {
     getMovies(searchURL + "&query=" + searchValue);
@@ -95,9 +137,9 @@ const eventListeners = () => {
     location.href = "http://127.0.0.1:5500/Categories/Dramas/index.html";
   });
   document.querySelector("#sci-fi").addEventListener("click", (e) => {
-    location.href = "http://127.0.0.1:5500/Categories/Sci-Fi/index.html";
+    // location.href = "http://127.0.0.1:5500/Categories/Sci-Fi/index.html";
     //BUNU SOR, 2 KERE ATLAYINCA BU PROBLEMI NASIL COZECEGIZ?
-    //location.href = "Categories/Sci-Fi/index.html";
+    location.href = "Categories/Sci-Fi/index.html";
   });
 };
 
