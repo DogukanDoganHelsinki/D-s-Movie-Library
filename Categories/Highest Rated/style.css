@@ -228,5 +228,5 @@ main {
   color: white;
   background-color: transparent;
   border: none;
-  z-index: 1;
+  z-index: 0;
 }

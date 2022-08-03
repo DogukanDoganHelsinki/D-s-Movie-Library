@@ -1,17 +1,3 @@
-const API_KEY = "api_key=fcc651f2e319bf0891036e2b83989afc";
-const BASE_URL = "https://api.themoviedb.org/3";
-const API_URL =
-  BASE_URL +
-  "/discover/movie?primary_release_date.gte=2014-09-15&primary_release_date.lte=2014-10-22&" +
-  API_KEY;
-const IMG_URL = "https://image.tmdb.org/t/p/w500";
-const container = document.querySelector(".container");
-const main = document.getElementById("main");
-const form = document.getElementById("form");
-
-const searchURL = BASE_URL + "search/movie?" + API_KEY;
-const aHighestRated = document.querySelector("#highest_rated");
-
 //https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=fcc651f2e319bf0891036e2b83989afc
 
 const startConf = () => {
@@ -26,6 +12,13 @@ const startConf = () => {
 
 startConf();
 
+const API_KEY = "api_key=fcc651f2e319bf0891036e2b83989afc";
+const BASE_URL = "https://api.themoviedb.org/3";
+const API_URL =
+  BASE_URL +
+  "/discover/movie?primary_release_date.gte=2014-09-15&primary_release_date.lte=2014-10-22&" +
+  API_KEY;
+
 getMovies(API_URL);
 
 function getMovies(url) {
@@ -37,6 +30,8 @@ function getMovies(url) {
 }
 
 function showMovies(data, numImages = 1) {
+  const main = document.getElementById("main");
+  const IMG_URL = "https://image.tmdb.org/t/p/w500";
   main.innerHTML = "";
 
   let i = 0;
@@ -75,14 +70,6 @@ function showMovies(data, numImages = 1) {
         //foreach yaptik cunku addeventlistener dizide calismiyor, bir elementte calisiyor.
 
         fb.addEventListener("click", addFav);
-        /* fb.addEventListener("click", (e) => {
-          const clickedBtn = e.path[1];
-          const clickedBtnId = e.path[1].id;
-
-          if (fb.id === clickedBtnId) {
-            clickedBtn.style.color = "red";
-          }
-        }); */
       });
     });
 
@@ -101,40 +88,42 @@ const getColor = (vote) => {
 };
 
 const addFav = (e) => {
-  let favBtns = document.querySelectorAll(".material-icons");
   const clickedMovieText = e.path[2].firstElementChild.alt;
 
   let favMovies = localStorage.getItem("favMovies");
   favMovies = favMovies + clickedMovieText;
   localStorage.setItem("favMovies", favMovies + "/");
+  toastr.success(
+    "You have successfully added the movie to your favorite list.",
+    "The Movie has added"
+  );
 };
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const search = document.getElementById("search");
-  let searchValue = search.value;
-
-  if (searchValue && searchValue !== "") {
-    getMovies(searchURL + "&query=" + searchValue);
-    searchValue = "";
-  } else {
-    window.location.reload();
-  }
-});
-
 const eventListeners = () => {
+  document.getElementById("form").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const searchURL = BASE_URL + "/search/movie?" + API_KEY;
+    const search = document.getElementById("search");
+    let searchValue = search.value;
+
+    if (searchValue && searchValue !== "") {
+      getMovies(searchURL + "&query=" + searchValue);
+      searchValue = "";
+    } else {
+      window.location.reload();
+    }
+  });
   document.querySelector("#highest_rated").addEventListener("click", (e) => {
-    location.href =
-      "http://127.0.0.1:5500/Categories/Highest%20Rated/index.html";
+    location.href = "Categories/Highest%20Rated/index.html";
   });
   document
     .querySelector("#popular_kid_movies")
     .addEventListener("click", (e) => {
-      location.href =
-        "http://127.0.0.1:5500/Categories/Popular%20Kid%20Movies/index.html";
+      location.href = "Categories/Popular%20Kid%20Movies/index.html";
     });
   document.querySelector("#dramas").addEventListener("click", (e) => {
-    location.href = "http://127.0.0.1:5500/Categories/Dramas/index.html";
+    location.href = "Categories/Dramas/index.html";
   });
   document.querySelector("#sci-fi").addEventListener("click", (e) => {
     // location.href = "http://127.0.0.1:5500/Categories/Sci-Fi/index.html";

@@ -254,20 +254,25 @@ main {
   margin-left: 7rem;
   border-radius: 30px;
 }
-.myUL {
-  position: relative;
-  color: white;
-  font-size: 1.5rem;
-  margin-left: 3rem;
-  margin-top: 4rem;
+.newDl {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  font-size: 35px;
+  list-style-type: none;
+  padding: 0;
+  color: white;
+  font: inherit;
+  font-size: 2rem;
+  margin-left: 1rem;
+}
+.newDl:hover {
+  background-color: #101235;
 }
 
-.newLi {
-  padding: 1rem;
-  background-color: var(--primary-color);
-  margin-right: 4rem;
-  margin-top: 1rem;
-  border-radius: 30px;
+.deleteBtn {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  text-decoration: underline;
 }

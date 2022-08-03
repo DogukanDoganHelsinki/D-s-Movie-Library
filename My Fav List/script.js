@@ -23,10 +23,36 @@ const startConf = () => {
 
 startConf();
 
-const favList = () => {
+const deleteFavList = (e) => {
+  const buttonLine = e.path[1];
+
   let favMovies = localStorage.getItem("favMovies");
   const firstTwo = favMovies.substring(2);
-  const favArray = firstTwo.split("/");
+  let favArray = firstTwo.split("/");
+  favArray.pop();
+  uniqueArray = favArray.filter((c, index) => {
+    return favArray.indexOf(c) === index;
+  });
+
+  buttonLine.remove();
+
+  let texts = e.path[2].innerText;
+  const newTextsArray = texts.split("\nRemove\n");
+  const string = JSON.stringify(newTextsArray);
+  const editedText = string.slice(0, -10);
+  const concatText = editedText.concat('"');
+  console.log(concatText);
+};
+
+const addFavList = () => {
+  let favMovies = localStorage.getItem("favMovies");
+  const firstTwo = favMovies.substring(2);
+  let favArray = firstTwo.split("/");
+  favArray.pop();
+
+  uniqueArray = favArray.filter((c, index) => {
+    return favArray.indexOf(c) === index;
+  });
 
   const listDiv = document.createElement("div");
   listDiv.classList.add("listDiv");
@@ -39,65 +65,79 @@ const favList = () => {
 
   listTitleDiv.appendChild(listTitle);
 
-  const myULDiv = document.createElement("div");
-  myULDiv.classList.add("myULDiv");
+  const dlDiv = document.createElement("div");
+  dlDiv.classList.add("dlDiv");
 
-  const myUL = document.createElement("ul");
-  myUL.classList.add("myUL");
+  uniqueArray.forEach((element) => {
+    const newDl = document.createElement("dl");
+    newDl.classList.add("newDl");
+    newDl.id = Math.random().toFixed(10).toString().slice(2);
 
-  const myLI = document.createElement("li");
-  myLI.classList.add("myLI");
-  favArray.forEach((element) => {
-    const newLi = document.createElement("li");
-    newLi.classList.add("newLi");
-    newLi.innerHTML = element;
-    myLI.appendChild(newLi);
+    const newDt = document.createElement("dt");
+    newDt.classList.add("newDt");
+    newDt.innerHTML = element;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("deleteBtn");
+    deleteBtn.id = Math.random().toFixed(10).toString().slice(2);
+    deleteBtn.innerHTML = "Remove";
+    deleteBtn.addEventListener("click", deleteFavList);
+
+    newDl.appendChild(newDt);
+    newDl.appendChild(deleteBtn);
+    dlDiv.appendChild(newDl);
   });
 
-  myUL.appendChild(myLI);
-  myULDiv.appendChild(myUL);
-
   listDiv.appendChild(listTitleDiv);
-  listDiv.appendChild(myULDiv);
+  listDiv.appendChild(dlDiv);
 
   listContainer.appendChild(listDiv);
 };
 
-favList();
-
-const form = document.getElementById("form");
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const search = document.getElementById("search");
-  let searchValue = search.value;
-
-  if (searchValue && searchValue !== "") {
-    getMovies(searchURL + "&query=" + searchValue);
-    searchValue = "";
-  } else {
-    window.location.reload();
-  }
-});
+addFavList();
 
 const eventListeners = () => {
+  document.getElementById("form").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const searchURL = BASE_URL + "/search/movie?" + API_KEY;
+    const search = document.getElementById("search");
+    let searchValue = search.value;
+
+    if (searchValue && searchValue !== "") {
+      getMovies(searchURL + "&query=" + searchValue);
+      searchValue = "";
+    } else {
+      window.location.reload();
+    }
+  });
   document.querySelector("#highest_rated").addEventListener("click", (e) => {
-    location.href =
-      "http://127.0.0.1:5500/Categories/Highest%20Rated/index.html";
+    location.href = "../Categories/Highest%20Rated/index.html";
   });
   document
     .querySelector("#popular_kid_movies")
     .addEventListener("click", (e) => {
-      location.href =
-        "http://127.0.0.1:5500/Categories/Popular%20Kid%20Movies/index.html";
+      location.href = "../Categories/Popular%20Kid%20Movies/index.html";
     });
   document.querySelector("#dramas").addEventListener("click", (e) => {
-    location.href = "http://127.0.0.1:5500/Categories/Dramas/index.html";
+    location.href = "../Categories/Dramas/index.html";
   });
   document.querySelector("#sci-fi").addEventListener("click", (e) => {
-    // location.href = "http://127.0.0.1:5500/Categories/Sci-Fi/index.html";
-    //BUNU SOR, 2 KERE ATLAYINCA BU PROBLEMI NASIL COZECEGIZ?
-    location.href = "Categories/Sci-Fi/index.html";
+    location.href = "../Categories/Sci-Fi/index.html";
+  });
+  document.querySelector("#advanced_search").addEventListener("click", (e) => {
+    location.href = "../Advanced Search/index.html";
+  });
+  document
+    .querySelector("#my_favourite_list")
+    .addEventListener("click", (e) => {
+      location.href = "../My Fav List/index.html";
+    });
+  document.querySelector("#home").addEventListener("click", (e) => {
+    location.href = "../index.html";
+  });
+  document.querySelector(".back_btn").addEventListener("click", (e) => {
+    window.history.back();
   });
 };
 

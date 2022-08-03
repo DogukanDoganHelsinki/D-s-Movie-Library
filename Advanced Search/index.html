@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
+
+    <link rel="stylesheet" href="/Advanced Search/style.css" />
+
+    <title>D´s Movies<i class="mdi mdi-library-outline:"></i></title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="navbar">
+          <button class="back_btn"><</button>
+          <a id="home">Home</a>
+          <a id="my_favourite_list">My Favourite List</a>
+          <a id="advanced_search">Advanced Search</a>
+          <div class="dropdown">
+            <button class="dropbtn">
+              Categories
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a id="highest_rated">Highest Rated Movies</a>
+              <a id="popular_kid_movies">Popular Kid Movies</a>
+              <a id="dramas">Dramas</a>
+              <a id="sci-fi">Sci-Fi</a>
+            </div>
+          </div>
+        </div>
+
+        <form id="form">
+          <input type="text" placeholder="Search" class="search" id="search" />
+        </form>
+      </header>
+
+      <main id="main">
+        <h1>Choose Your Film</h1>
+
+        <div class="slidecontainer">
+          <input
+            type="range"
+            min="1"
+            max="10"
+            value="5"
+            class="slider"
+            id="myRange"
+          />
+          <p id="movie_point">Movie Point: <span id="demo"></span></p>
+          <button id="search_Btn" class="search_Btn">Search</button>
+        </div>
+        <div class="filmList"></div>
+      </main>
+    </div>
+    <script src="/Advanced Search/script.js"></script>
+  </body>
+</html>
